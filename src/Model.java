@@ -10,8 +10,8 @@ import java.awt.event.KeyEvent;
  */
 public class Model extends JPanel
 {
+    JButton displayDown;
     private JPanel display;
-    private JButton displayDown;
     private JButton displayTop;
     private JPanel panel;
     private double result;
@@ -22,6 +22,7 @@ public class Model extends JPanel
 
     public Model()
     {
+
 
         result = 0;
         lastCommand = "=";
