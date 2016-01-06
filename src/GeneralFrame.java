@@ -15,7 +15,7 @@ public class GeneralFrame {
                 frame.setIconImage(img);
                 frame.getContentPane().add(new Model());
 
-                /** */
+
                 /*frame.addWindowListener(new
                                                 WindowAdapter() {
                                                     public void windowOpened(WindowEvent e) {
