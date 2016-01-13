@@ -5,12 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
- *
- * A panel with calculator buttons and a result displayDown.
+ * Class with panel of calculator buttons and a result displayDown.
+ * @author Dmytro Melnychuk
+ * @version 1.0
  */
 public class Model extends JPanel
 {
-    JButton displayDown;
+    protected JButton displayDown;
     private JPanel display;
     private JButton displayTop;
     private JPanel panel;
@@ -20,16 +21,27 @@ public class Model extends JPanel
     private boolean includingDot;
     private String string;
 
+    /**
+     * Main constructor of Model with define all construction of application context
+     */
     public Model()
     {
-
-
+        /**
+         * Basic mathematical references
+         */
         result = 0;
         lastCommand = "=";
         start = true;
         includingDot = false;
+
+        /**
+         * Layer under application context
+         */
         string = "Created by Dmytro Melnychuk";
 
+        /**
+         * Format align of all elements of context
+         */
         setLayout(new BorderLayout());
         display = new JPanel();
         display.setLayout(new GridLayout(2, 2));
@@ -43,6 +55,9 @@ public class Model extends JPanel
         display.add(displayDown);
         add(display, BorderLayout.NORTH);
 
+        /**
+         * Adding keys for enter numbers to program
+         */
         Action key1 = new AddKey("1");
         Action key2 = new AddKey("2");
         Action key3 = new AddKey("3");
@@ -55,10 +70,16 @@ public class Model extends JPanel
         Action key0 = new AddKey("0");
         Action insertDot = new AddKey(".");
 
+        /**
+         * Action for keys
+         */
         ActionListener insertPI = new InsertPI();
         ActionListener command = new CommandAction();
         ActionListener commandEdit = new CommandOfEdit();
 
+        /**
+         * Create panel with keys
+         */
         panel = new JPanel();
         panel.setLayout(new GridLayout(5, 4));
 
@@ -88,6 +109,9 @@ public class Model extends JPanel
         addButton("+", command);
         add(panel, BorderLayout.CENTER);
 
+        /**
+         * Pegging keys with keys on NumLock keyboard
+         */
         InputMap imap = panel.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         imap.put(KeyStroke.getKeyStroke("1"),"panelKey.1");
         imap.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, KeyEvent.VK_NUM_LOCK ),"panelKey.num.1");
@@ -112,6 +136,9 @@ public class Model extends JPanel
         imap.put(KeyStroke.getKeyStroke(KeyEvent.VK_PERIOD, KeyEvent.CTRL_MASK),"panelKey.dot");
         imap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DECIMAL, KeyEvent.VK_NUM_LOCK ),"panelKey.num.dot");
 
+        /**
+         * Pegging keys with keys on keyboard
+         */
         ActionMap amap = panel.getActionMap();
         amap.put("panelKey.1", key1);
         amap.put("panelKey.num.1",  key1);
@@ -136,6 +163,9 @@ public class Model extends JPanel
         amap.put("panelKey.dot", insertDot);
         amap.put("panelKey.num.dot",  insertDot);
 
+        /**
+         * Creating format of this context
+         */
         this.setBackground(Color.white);
         JLabel label = new JLabel(string,  SwingConstants.RIGHT);
         label.setFont(new Font("Georgia", Font.ITALIC + Font.BOLD, 12));
@@ -168,6 +198,11 @@ public class Model extends JPanel
         button.setBackground(Color.white);
         panel.add(button);
     }
+    /**
+     * Adds a button to the center panel.
+     * @param icon the button icon for show on this button
+     * @param listener the button listener
+     */
     private void addButton(ImageIcon icon, ActionListener listener)
     {
         Image newimg = icon.getImage().getScaledInstance(25, 25,  Image.SCALE_SMOOTH);
@@ -225,23 +260,6 @@ public class Model extends JPanel
             displayDown.setText(displayDown.getText() + input);
         }
     }
-
-   /*
-    private class InsertAction implements ActionListener
-    {
-        public void actionPerformed(ActionEvent event)
-        {
-            String input = event.getActionCommand();
-            if (start)
-            {
-//                if(displayDown.getText()!="0")
-//                displayTop.setText(displayTop.getText()+" "+displayDown.getText());
-                displayDown.setText("");
-                start = false;
-            }
-            displayDown.setText(displayDown.getText() + input);
-        }
-    }*/
     /**
      * This action inserts the button action string to the end of the displayDown text.
      */
@@ -251,11 +269,6 @@ public class Model extends JPanel
         {
             String command = event.getActionCommand();
             int length = displayDown.getText().length();
-//            if (start)
-//            {
-//                displayDown.setText("");
-//                start = false;
-//            }
             if(command!="C" && command!="CE") {
                 if (!displayDown.getText().equals("0")) {
                     displayDown.setText(displayDown.getText().substring(0, length - 1));
@@ -277,8 +290,6 @@ public class Model extends JPanel
                 start = true;
                 includingDot=false;
             }
-
-
         }
     }
 
@@ -293,10 +304,6 @@ public class Model extends JPanel
             String temp = displayDown.getText();
             if(command!="=") {
                 if (start) {
-                /*if (command.equals("-")) {
-                    displayDown.setText(command);
-                    start = false;
-                } else*/
                     displayDown.setText(command);
                     lastCommand = command;
                 } else {
@@ -339,5 +346,3 @@ public class Model extends JPanel
         displayDown.setText("" + result);
     }
 }
-
-
