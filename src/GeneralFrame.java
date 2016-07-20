@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedOutputStream;
@@ -8,6 +9,7 @@ import java.io.PrintStream;
 
 /**
  * Main class of application with main frame
+ *
  * @author Dmytro Melnychuk
  * @version 1.0
  */
